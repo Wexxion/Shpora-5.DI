@@ -14,6 +14,8 @@ namespace FractalPainting.App.Actions
 	        this.imageHolder = imageHolder;
 	        this.palette = palette;
 	    }
+
+		
 		public string Category => "Фракталы";
 		public string Name => "Кривая Коха";
 		public string Description => "Кривая Коха";

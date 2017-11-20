@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Windows.Forms;
 using FractalPainting.App.Actions;
+using FractalPainting.App.Fractals;
 using FractalPainting.Infrastructure;
 using Ninject;
 
@@ -18,13 +19,13 @@ namespace FractalPainting.App
             container.Bind<IUiAction>().To<KochFractalAction>();
             container.Bind<IUiAction>().To<ImageSettingsAction>();
             container.Bind<IUiAction>().To<PaletteSettingsAction>();
-            container.Bind<IImageHolder>().To<PictureBoxImageHolder>();
 
-            
+            container.Bind<IImageHolder, PictureBoxImageHolder>()
+                .To<PictureBoxImageHolder>().InSingletonScope();
+            container.Bind<Palette>().ToSelf().InSingletonScope();
 
             try
             {
-                
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 var form = container.Get<MainForm>();
