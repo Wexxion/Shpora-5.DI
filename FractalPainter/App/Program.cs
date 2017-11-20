@@ -26,8 +26,14 @@ namespace FractalPainting.App
             container.Bind<Palette>().ToSelf().InSingletonScope();
             //4
             container.Bind<KochPainter>().ToSelf();
-
+            //5
             container.Bind<IDragonPainterFactory>().ToFactory();
+            //8
+            container.Bind<IObjectSerializer>().To<XmlObjectSerializer>().WhenInjectedInto<SettingsManager>();
+            container.Bind<IBlobStorage>().To<FileBlobStorage>().WhenInjectedInto<SettingsManager>();
+            container.Bind<AppSettings>().ToMethod(a => a.Kernel.Get<SettingsManager>().Load()).InSingletonScope();
+            container.Bind<ImageSettings>().ToMethod(a => a.Kernel.Get<AppSettings>().ImageSettings).InSingletonScope();
+
 
             try
             {
