@@ -19,10 +19,12 @@ namespace FractalPainting.App
             container.Bind<IUiAction>().To<KochFractalAction>();
             container.Bind<IUiAction>().To<ImageSettingsAction>();
             container.Bind<IUiAction>().To<PaletteSettingsAction>();
-
+            //3
             container.Bind<IImageHolder, PictureBoxImageHolder>()
                 .To<PictureBoxImageHolder>().InSingletonScope();
             container.Bind<Palette>().ToSelf().InSingletonScope();
+            //4
+            container.Bind<KochPainter>().ToSelf();
 
             try
             {
