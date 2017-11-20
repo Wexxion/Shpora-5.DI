@@ -10,12 +10,14 @@ namespace FractalPainting.App.Actions
         DragonPainter Create(DragonSettings settings);
     }
     public class DragonFractalAction : IUiAction
-	{
-	    private IDragonPainterFactory factory;
+    {
+        private readonly Func<DragonSettings> settingsFactory;
+	    private readonly IDragonPainterFactory factory;
 
-	    public DragonFractalAction(IDragonPainterFactory factory)
-        { 
+	    public DragonFractalAction(IDragonPainterFactory factory, Func<DragonSettings> settingsFactory)
+	    {
 	        this.factory = factory;
+	        this.settingsFactory = settingsFactory;
 	    }
 
 
@@ -26,16 +28,9 @@ namespace FractalPainting.App.Actions
 		public void Perform()
 		{
             
-            var dragonSettings = CreateRandomSettings();
+            var dragonSettings = settingsFactory();
             SettingsForm.For(dragonSettings).ShowDialog();
 		    factory.Create(dragonSettings).Paint();
         }
-
-        private static DragonSettings CreateRandomSettings()
-		{
-			return new DragonSettingsGenerator(new Random()).Generate();
-		}
 	}
-
-    
 }
