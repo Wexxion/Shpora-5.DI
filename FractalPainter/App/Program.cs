@@ -5,6 +5,7 @@ using FractalPainting.App.Actions;
 using FractalPainting.App.Fractals;
 using FractalPainting.Infrastructure;
 using Ninject;
+using Ninject.Extensions.Factory;
 
 namespace FractalPainting.App
 {
@@ -25,6 +26,8 @@ namespace FractalPainting.App
             container.Bind<Palette>().ToSelf().InSingletonScope();
             //4
             container.Bind<KochPainter>().ToSelf();
+
+            container.Bind<IDragonPainterFactory>().ToFactory();
 
             try
             {
